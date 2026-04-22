@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BudgetPath - 얼마짜리 여행</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Segoe UI', sans-serif; background: #f5f7fa; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+    .card { background: #fff; border-radius: 16px; padding: 40px; width: 480px; box-shadow: 0 4px 24px rgba(0,0,0,0.08); }
+    h1 { font-size: 1.8rem; font-weight: 700; margin-bottom: 4px; }
+    .subtitle { color: #888; font-size: 0.9rem; margin-bottom: 32px; }
+    label { display: block; font-size: 0.85rem; font-weight: 600; color: #444; margin-bottom: 6px; }
+    input, select { width: 100%; padding: 10px 14px; border: 1px solid #ddd; border-radius: 8px; font-size: 0.95rem; margin-bottom: 20px; }
+    input:focus, select:focus { outline: none; border-color: #4f8ef7; }
+    .pref-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin-bottom: 24px; }
+    .pref-item label { font-size: 0.8rem; }
+    .pref-item input { margin-bottom: 0; }
+    .btn { width: 100%; padding: 14px; background: #4f8ef7; color: #fff; border: none; border-radius: 10px; font-size: 1rem; font-weight: 600; cursor: pointer; transition: background 0.2s; }
+    .btn:hover { background: #3a7ae8; }
+    .error { color: #e53e3e; font-size: 0.85rem; margin-top: -14px; margin-bottom: 14px; display: none; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>BudgetPath</h1>
+    <p class="subtitle">예산을 입력하면 최적 여행 코스를 결정해드립니다</p>
+
+    <form id="tripForm">
+      <label>예산 (원)</label>
+      <input type="number" id="budget" placeholder="예: 1000000" min="1" required />
+
+      <label>지역</label>
+      <input type="text" id="region" placeholder="예: Tokyo" required />
+
+      <label>여행 기간 (일)</label>
+      <input type="number" id="durationDays" placeholder="예: 3" min="1" max="30" required />
+
+      <label>성향 가중치 (합계 1.0)</label>
+      <div class="pref-row">
+        <div class="pref-item">
+          <label>음식 (food)</label>
+          <input type="number" id="prefFood" step="0.1" min="0" max="1" value="0.4" />
+        </div>
+        <div class="pref-item">
+          <label>숙소 (hotel)</label>
+          <input type="number" id="prefHotel" step="0.1" min="0" max="1" value="0.3" />
+        </div>
+        <div class="pref-item">
+          <label>체험 (exp)</label>
+          <input type="number" id="prefExp" step="0.1" min="0" max="1" value="0.3" />
+        </div>
+      </div>
+      <p class="error" id="prefError">가중치 합계가 1.0이어야 합니다</p>
+
+      <button type="submit" class="btn">최적 코스 결정하기 →</button>
+    </form>
+  </div>
+
+  <script>
+    document.getElementById('tripForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const food  = parseFloat(document.getElementById('prefFood').value);
+      const hotel = parseFloat(document.getElementById('prefHotel').value);
+      const exp   = parseFloat(document.getElementById('prefExp').value);
+      const sum   = Math.round((food + hotel + exp) * 10) / 10;
+
+      if (sum !== 1.0) {
+        document.getElementById('prefError').style.display = 'block';
+        return;
+      }
+      document.getElementById('prefError').style.display = 'none';
+
+      const payload = {
+        budget:       parseInt(document.getElementById('budget').value),
+        region:       document.getElementById('region').value.trim(),
+        durationDays: parseInt(document.getElementById('durationDays').value),
+        preferences:  { food, hotel, experience: exp }
+      };
+
+      try {
+        const res = await fetch('http://localhost:8080/api/trips/generate', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        if (!res.ok) throw new Error('서버 오류');
+        const data = await res.json();
+        sessionStorage.setItem('tripResult', JSON.stringify(data));
+        window.location.href = 'result.html';
+      } catch (err) {
+        alert('코스 생성 실패: ' + err.message);
+      }
+    });
+  </script>
+</body>
+</html>

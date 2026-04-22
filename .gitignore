@@ -1,0 +1,18 @@
+# Build
+target/
+*.class
+
+# IDE
+.idea/
+*.iml
+.vscode/
+
+# Claude Code
+.claude/
+
+# Keys & secrets
+doc/key.env
+**/application-local.yml
+
+# OS
+.DS_Store

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BudgetPath - 결과</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Segoe UI', sans-serif; background: #f5f7fa; min-height: 100vh; padding: 40px 20px; }
+    .container { max-width: 640px; margin: 0 auto; }
+    h1 { font-size: 1.6rem; font-weight: 700; margin-bottom: 4px; }
+    .meta { color: #888; font-size: 0.88rem; margin-bottom: 24px; }
+    .summary { background: #fff; border-radius: 12px; padding: 20px 24px; margin-bottom: 24px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .summary-item span { display: block; }
+    .summary-item .val { font-size: 1.2rem; font-weight: 700; color: #4f8ef7; }
+    .summary-item .lbl { font-size: 0.78rem; color: #888; margin-top: 2px; }
+    .place-card { background: #fff; border-radius: 12px; padding: 18px 22px; margin-bottom: 14px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); display: flex; align-items: center; gap: 16px; }
+    .step { width: 32px; height: 32px; border-radius: 50%; background: #4f8ef7; color: #fff; display: flex; align-items: center; justify-content: center; font-weight: 700; flex-shrink: 0; }
+    .place-info { flex: 1; }
+    .place-name { font-weight: 600; font-size: 1rem; }
+    .place-meta { font-size: 0.82rem; color: #888; margin-top: 4px; }
+    .badge { display: inline-block; padding: 2px 8px; border-radius: 20px; font-size: 0.75rem; font-weight: 600; margin-right: 6px; }
+    .badge.food       { background: #fff3cd; color: #856404; }
+    .badge.hotel      { background: #cfe2ff; color: #084298; }
+    .badge.experience { background: #d1e7dd; color: #0a3622; }
+    .price { font-weight: 700; color: #333; white-space: nowrap; }
+    .back-btn { display: inline-block; margin-top: 24px; padding: 12px 28px; background: #4f8ef7; color: #fff; border-radius: 10px; text-decoration: none; font-weight: 600; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>최적 여행 코스</h1>
+    <p class="meta" id="meta"></p>
+
+    <div class="summary" id="summary"></div>
+
+    <div id="itinerary"></div>
+
+    <a href="index.html" class="back-btn">← 다시 검색</a>
+  </div>
+
+  <script>
+    const data = JSON.parse(sessionStorage.getItem('tripResult'));
+    if (!data) { window.location.href = 'index.html'; }
+
+    document.getElementById('meta').textContent =
+      `${data.region} · ${data.durationDays}일`;
+
+    document.getElementById('summary').innerHTML = `
+      <div class="summary-item">
+        <span class="val">${data.totalBudget.toLocaleString()}원</span>
+        <span class="lbl">총 예산</span>
+      </div>
+      <div class="summary-item">
+        <span class="val">${data.usedBudget.toLocaleString()}원</span>
+        <span class="lbl">사용 예산</span>
+      </div>
+      <div class="summary-item">
+        <span class="val">${data.itinerary.length}곳</span>
+        <span class="lbl">장소 수</span>
+      </div>
+      <div class="summary-item">
+        <span class="val">${data.totalScore.toFixed(2)}</span>
+        <span class="lbl">총 점수</span>
+      </div>
+    `;
+
+    const container = document.getElementById('itinerary');
+    data.itinerary.forEach((place, i) => {
+      container.innerHTML += `
+        <div class="place-card">
+          <div class="step">${i + 1}</div>
+          <div class="place-info">
+            <div class="place-name">
+              <span class="badge ${place.category}">${place.category}</span>${place.name}
+            </div>
+            <div class="place-meta">
+              ⭐ ${place.rating.toFixed(1)} &nbsp;·&nbsp; ⏱ ${place.durationMinutes}분 &nbsp;·&nbsp; 점수 ${place.score.toFixed(2)}
+            </div>
+          </div>
+          <div class="price">${place.price.toLocaleString()}원</div>
+        </div>
+      `;
+    });
+  </script>
+</body>
+</html>
