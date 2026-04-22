@@ -1,4 +1,4 @@
-package com.budgetpath.dto;
+package com.eolmatrip.dto;
 
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;

@@ -1,8 +1,8 @@
-package com.budgetpath.controller;
+package com.eolmatrip.controller;
 
-import com.budgetpath.dto.TripRequest;
-import com.budgetpath.dto.TripResponse;
-import com.budgetpath.service.TripService;
+import com.eolmatrip.dto.TripRequest;
+import com.eolmatrip.dto.TripResponse;
+import com.eolmatrip.service.TripService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

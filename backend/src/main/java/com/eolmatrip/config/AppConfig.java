@@ -1,6 +1,6 @@
-package com.budgetpath.config;
+package com.eolmatrip.config;
 
-import com.budgetpath.algorithm.TripOptimizer;
+import com.eolmatrip.algorithm.TripOptimizer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.client.RestTemplate;

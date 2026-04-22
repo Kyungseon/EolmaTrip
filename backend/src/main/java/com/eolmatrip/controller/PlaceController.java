@@ -1,7 +1,7 @@
-package com.budgetpath.controller;
+package com.eolmatrip.controller;
 
-import com.budgetpath.model.Place;
-import com.budgetpath.service.PlaceService;
+import com.eolmatrip.model.Place;
+import com.eolmatrip.service.PlaceService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

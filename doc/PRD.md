@@ -1,4 +1,4 @@
-# BudgetPath (얼마짜리) - PRD & 개발 지시서
+# EolmaTrip (얼마짜리) - PRD & 개발 지시서
 
 ## 1. 서비스 개요
 

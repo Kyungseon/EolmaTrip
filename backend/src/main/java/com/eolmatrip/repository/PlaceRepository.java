@@ -1,6 +1,6 @@
-package com.budgetpath.repository;
+package com.eolmatrip.repository;
 
-import com.budgetpath.model.Place;
+import com.eolmatrip.model.Place;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

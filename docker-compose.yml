@@ -1,10 +1,10 @@
 services:
   mysql:
     image: mysql:8.0
-    container_name: budgetpath-mysql
+    container_name: eolmatrip-mysql
     environment:
-      MYSQL_ROOT_PASSWORD: budgetpath1234
-      MYSQL_DATABASE: budgetpath
+      MYSQL_ROOT_PASSWORD: eolmatrip1234
+      MYSQL_DATABASE: eolmatrip
       MYSQL_CHARACTER_SET_SERVER: utf8mb4
       MYSQL_COLLATION_SERVER: utf8mb4_unicode_ci
     ports:
@@ -13,7 +13,7 @@ services:
       - mysql_data:/var/lib/mysql
       - ./backend/src/main/resources/schema.sql:/docker-entrypoint-initdb.d/init.sql
     healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-pbudgetpath1234"]
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-peolmatrip1234"]
       interval: 10s
       timeout: 5s
       retries: 5
@@ -22,13 +22,13 @@ services:
     build:
       context: ./backend
       dockerfile: Dockerfile
-    container_name: budgetpath-backend
+    container_name: eolmatrip-backend
     ports:
       - "8080:8080"
     environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/budgetpath?useSSL=false&serverTimezone=Asia/Seoul&allowPublicKeyRetrieval=true
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/eolmatrip?useSSL=false&serverTimezone=Asia/Seoul&allowPublicKeyRetrieval=true
       SPRING_DATASOURCE_USERNAME: root
-      SPRING_DATASOURCE_PASSWORD: budgetpath1234
+      SPRING_DATASOURCE_PASSWORD: eolmatrip1234
     depends_on:
       mysql:
         condition: service_healthy

@@ -2,7 +2,7 @@
 
 개발 중 (MySQL만 Docker)
 
-cd /Users/kyungseon/dev/budgetpath
+cd /Users/kyungseon/dev/eolmatrip
 
 ## MySQL 컨테이너만 실행
 docker compose up -d mysql
@@ -13,7 +13,7 @@ mvn spring-boot:run
 
 전체 Docker로 실행 (배포용)
 
-cd /Users/kyungseon/dev/budgetpath
+cd /Users/kyungseon/dev/eolmatrip
 
 docker compose --profile full up -d
 
@@ -26,7 +26,7 @@ docker compose ps
 docker compose logs -f mysql
 
 # MySQL 접속 (확인용)
-docker exec -it budgetpath-mysql mysql -uroot -pbudgetpath1234 budgetpath
+docker exec -it eolmatrip-mysql mysql -uroot -peolmatrip1234 eolmatrip
 
 # 전체 종료
 docker compose down

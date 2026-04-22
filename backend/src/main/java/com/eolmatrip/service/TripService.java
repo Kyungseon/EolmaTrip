@@ -1,10 +1,10 @@
-package com.budgetpath.service;
+package com.eolmatrip.service;
 
-import com.budgetpath.algorithm.TripOptimizer;
-import com.budgetpath.dto.TripRequest;
-import com.budgetpath.dto.TripResponse;
-import com.budgetpath.model.Place;
-import com.budgetpath.repository.PlaceRepository;
+import com.eolmatrip.algorithm.TripOptimizer;
+import com.eolmatrip.dto.TripRequest;
+import com.eolmatrip.dto.TripResponse;
+import com.eolmatrip.model.Place;
+import com.eolmatrip.repository.PlaceRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

@@ -1,4 +1,4 @@
-package com.budgetpath.dto;
+package com.eolmatrip.dto;
 
 import lombok.Builder;
 import lombok.Getter;

@@ -1,11 +1,11 @@
-package com.budgetpath;
+package com.eolmatrip;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class BudgetPathApplication {
+public class EolmaTripApplication {
     public static void main(String[] args) {
-        SpringApplication.run(BudgetPathApplication.class, args);
+        SpringApplication.run(EolmaTripApplication.class, args);
     }
 }

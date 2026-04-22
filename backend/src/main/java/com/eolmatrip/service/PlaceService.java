@@ -1,7 +1,7 @@
-package com.budgetpath.service;
+package com.eolmatrip.service;
 
-import com.budgetpath.model.Place;
-import com.budgetpath.repository.PlaceRepository;
+import com.eolmatrip.model.Place;
+import com.eolmatrip.repository.PlaceRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

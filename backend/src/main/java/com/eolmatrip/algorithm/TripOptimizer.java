@@ -1,7 +1,7 @@
-package com.budgetpath.algorithm;
+package com.eolmatrip.algorithm;
 
-import com.budgetpath.dto.TripRequest;
-import com.budgetpath.model.Place;
+import com.eolmatrip.dto.TripRequest;
+import com.eolmatrip.model.Place;
 
 import java.util.*;
 
